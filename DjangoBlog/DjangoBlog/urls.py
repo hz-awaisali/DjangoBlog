@@ -28,6 +28,9 @@ urlpatterns = [
     path('register/', register_page, name='register_page'),
     path('logout/', logout_user, name='logout_user'),
     path('create/', create_blog, name='create_blog'),
+    path('update/', update_blogs_list, name='update_blogs_list'),
+    path('update/<int:bid>/', update_blog, name='update_blog'),
+    path('delete/<int:bid>/', delete_blog, name='delete_blog'),
 
 
     path('blogs/', include('blogs.urls')),

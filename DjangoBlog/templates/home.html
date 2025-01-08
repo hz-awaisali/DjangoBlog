@@ -12,6 +12,8 @@
         <hr>
     </div>
 
+    {% if posts %}
+
     <!-- Cards Section -->
     <div class="row mt-5">
         {% for post in posts %}
@@ -22,18 +24,23 @@
                 </div>
                 <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
                 <div class="card-body">
-                    <h3 class="card-title">{{ post.title|truncatewords:6 }}</h3>
+                    <h3 class="card-title">{{ post.title|truncatewords:5 }}</h3>
                     <div  class="d-flex justify-content-between mt-2" style = "color: #6c757d;">
                         <em>{{post.author}}</em>
                         <p>{{ post.created_at }}</p>
                     </div>
                     <hr>
-                    <p class="card-text">{{ post.body|truncatewords:10 }}</p>
+                    <p class="card-text">{{ post.body_html|truncatewords:10 | safe }}</p>
                     <a href="/blogs/{{post.id}}" class="btn btn-primary w-100">Read More</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="alert alert-warning">
+        No blogs found.
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}

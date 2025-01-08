@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Update Blog{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <h1>Update Blogs</h1>
+    <p style="color: grey;">Make any suitable changes in your blogs here...</p>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if blogs %}
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs %}
+            <tr>
+                <td><img src="{{ blog.image.url }}" class="img-fluid" alt="{{ blog.title }}" style="max-width: 100px;"></td>
+                <td class = "align-content-center">{{ blog.title|truncatewords:10 }}</td>
+                <td class = "align-content-center">{{ blog.category }}</td>
+                <td class = "align-content-center">
+                    <div class="d-flex gap-1">
+                        <a href="/update/{{ blog.id }}" class="btn  btn-secondary w-100">Update</a>
+                        <a href="/delete/{{ blog.id }}" class="btn btn-danger w-100" onclick="return confirm('Are you sure you want to delete this blog?');">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning">
+        No blogs found.
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script>
+    // Initialize SimpleMDE on the textarea
+    var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+</script>
+{% endblock %}
