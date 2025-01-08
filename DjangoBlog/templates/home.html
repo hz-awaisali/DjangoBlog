@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center p-5 rounded" style="background-color:rgb(253, 255, 207);">
+        <h1 class="display-4">Welcome to DjangoBlog!</h1>
+        <p class="lead">Your one-stop destination for all the latest blog posts.</p>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="text-center display-6">Latest Posts</h2>
+        <hr>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="row mt-5">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="position-absolute top-0 end-0 p-2">
+                    <span class="badge bg-primary">{{ post.category }}</span>
+                </div>
+                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                <div class="card-body">
+                    <h3 class="card-title">{{ post.title|truncatewords:6 }}</h3>
+                    <div  class="d-flex justify-content-between mt-2" style = "color: #6c757d;">
+                        <em>{{post.author}}</em>
+                        <p>{{ post.created_at }}</p>
+                    </div>
+                    <hr>
+                    <p class="card-text">{{ post.body|truncatewords:10 }}</p>
+                    <a href="/blogs/{{post.id}}" class="btn btn-primary w-100">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

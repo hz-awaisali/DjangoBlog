@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Create Blog{% endblock %}
+
+{% block content %}
+
+<div class="card my-5 w-50 mx-auto">
+    <div class="card-header">
+        <h1>Create a Blog</h1>
+        <p style = "color: grey;">Craft an amazing blog here</p>
+    </div>
+    <div class="card-body">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Blog Title</label>
+                <input type="text" name="title" id="title" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="img" class="form-label">Blog Image</label>
+                <input type="file" name="image" id="img" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" name="category" id="category" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="markdown-editor" class="form-label">Blog Content</label>
+                <textarea id="markdown-editor" name="content" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script>
+    // Initialize SimpleMDE on the textarea
+    var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+</script>
+{% endblock %}
